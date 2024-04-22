@@ -1,0 +1,12 @@
+EXE_INC = \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I/$WM_PROJECT_USER_DIR/applications/myTests/pythonFoamTest/venv/lib/python3.8/ \
+    -I/$WM_PROJECT_USER_DIR/applications/myTests/pythonFoamTest/venv/lib/python3.8/site-packages/numpy/core/include
+
+
+EXE_LIBS = \
+    -L//home/daep/a.del-ser/OpenFOAM/a.del-ser-9/applications/myTests/pythonFoamTest/venv/lib/ \
+    -lfiniteVolume \
+    -lmeshTools \
+    -lpython3.8

@@ -1,0 +1,75 @@
+sinclude $(GENERAL_RULES)/module-path-user
+
+
+ifeq (,$(strip $(FOAM_MODULE_APPBIN)))
+    FOAM_MODULE_APPBIN = $(FOAM_USER_APPBIN)
+endif
+ifeq (,$(strip $(FOAM_MODULE_LIBBIN)))
+    FOAM_MODULE_LIBBIN = $(FOAM_USER_LIBBIN)
+endif
+
+
+PY_INCS := \
+    -Wno-old-style-cast \
+    -I/home/daep/a.del-ser/.conda/envs/condaenv/include/python3.9/ \
+    -I/home/daep/a.del-ser/.conda/envs/condaenv/include/ \
+    -I/home/daep/a.del-ser/.conda/envs/condaenv/lib/python3.9/site-packages/numpy/ \
+    -I/home/daep/a.del-ser/.conda/envs/condaenv/lib/python3.9/site-packages/numpy/core/include/numpy/ 
+PY_LIBS := \
+    -lpython3
+
+
+#ifdef OPENFOAM
+
+
+TRANSPORT_INCS := \
+    -I$(LIB_SRC)/MomentumTransportModels/momentumTransportModels/lnInclude \
+    -I$(LIB_SRC)/MomentumTransportModels/incompressible/lnInclude \
+    -I$(LIB_SRC)/transportModels/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+
+TRANSPORT_LIBS := \
+    -lmomentumTransportModels \
+    -lincompressibleMomentumTransportModels \
+    -ltransportModels \
+    -lfiniteVolume \
+    -lmeshTools \
+    -lfvModels \
+    -lfvConstraints \
+    -lsampling \
+
+#else
+
+
+TRANSPORT_INCS := \
+    -I$(LIB_SRC)/MomentumTransportModels/momentumTransportModels/lnInclude \
+    -I$(LIB_SRC)/MomentumTransportModels/incompressible/lnInclude \
+    -I$(LIB_SRC)/transportModels/lnInclude
+
+TRANSPORT_LIBS := \
+    -lmomentumTransportModels \
+    -lincompressibleMomentumTransportModels \
+
+#endif
+
+EXE_INC = \
+    $(TRANSPORT_INCS) \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+    -I$(LIB_SRC)/dynamicFvMesh/lnInclude \
+    -I$(LIB_SRC)/dynamicMesh/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    $(PY_INCS)
+
+EXE_LIBS = \
+    $(TRANSPORT_LIBS) \
+    -lfiniteVolume \
+    -lsampling \
+    -ldynamicFvMesh \
+    -ltopoChangerFvMesh \
+    -ldynamicMesh \
+    -lmeshTools \
+    -L/home/daep/a.del-ser/.conda/envs/condaenv/lib/ \
+    $(PY_LIBS)

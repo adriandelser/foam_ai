@@ -1,0 +1,6 @@
+https://docs.python.org/3.5/c-api/object.html?highlight=pyobject_callobject#c.PyObject_CallObject
+
+https://stackoverflow.com/questions/31029421/call-pyobject-callobject-with-more-than-one-function-argument
+
+https://docs.python.org/3.5/c-api/object.html?highlight=pyobject_callobject#c.PyObject_CallFunction
+
